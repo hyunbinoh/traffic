@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>해외 여행 추천</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        .city-name {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .section {
+            margin-top: 20px;
+        }
+        .item {
+            margin-bottom: 15px;
+            padding: 10px;
+            background: #ecf0f1;
+            border-radius: 5px;
+        }
+        .item h3 {
+            margin: 0 0 5px;
+            font-size: 18px;
+            color: #2980b9;
+        }
+        .item p {
+            margin: 0;
+            font-size: 14px;
+            color: #7f8c8d;
+        }
+        .description {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #2c3e50;
+        }
+        .button-container {
+            text-align: left;
+            margin-top: 20px;
+        }
+        .booking-button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .booking-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <a href="http://localhost:3000/login" class="home-button">🏠</a>
+
+    <div class="container">
+        <h1>추천 여행지</h1>
+        <p class="city-name">{{ city_name }}</p>
+
+        <div class="section">
+            <h2>1년 전 날씨 정보</h2>
+            {% if weather_data %}
+                {% for weather in weather_data %}
+                    <div class="item">
+                        <h3>{{ weather.date }}의 날씨</h3>
+                        <p><strong>온도:</strong> {{ (weather.temperature - 273.15) | round(1) }}°C (체감 온도: {{ (weather.feels_like - 273.15) | round(1) }}°C)</p>
+                        <p><strong>날씨 상태:</strong> {{ weather.weather_description }}</p>
+                        <p><strong>습도:</strong> {{ weather.humidity | round(1) }}%</p>
+                        <p><strong>강수량:</strong> {{ weather.rain | round(1) }} mm</p>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>날씨 정보를 찾을 수 없습니다.</p>
+            {% endif %}
+        </div>
+
+        <div class="section">
+            <h2>식당</h2>
+            {% if restaurants %}
+                {% for restaurant in restaurants[:7] %}
+                    <div class="item">
+                        <h3>{{ restaurant.name }}</h3>
+                        <p>{{ restaurant.address }}</p>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>식당 정보를 찾을 수 없습니다.</p>
+            {% endif %}
+        </div>
+
+        <div class="section">
+            <h2>호텔</h2>
+            {% if hotels %}
+                {% for hotel in hotels[:7] %}
+                    <div class="item">
+                        <h3>{{ hotel.name }}</h3>
+                        <p>{{ hotel.address }}</p>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>호텔 정보를 찾을 수 없습니다.</p>
+            {% endif %}
+        </div>
+
+        {% if show_booking %}
+        <div class="section">
+            <h2>항공권 예약</h2>
+            <p>항공권을 예약하시겠습니까?</p>
+            <div class="button-container">
+                <a href="{{ url_for('booking_flight') }}" class="booking-button">네! 항공권 예약할래요</a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

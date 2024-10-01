@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Recommendation System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Nunito', sans-serif;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: transparent;
+            color: #fff;
+        }
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            filter: blur(2px);
+            z-index: -1;
+        }
+        .container {
+            width: 90%;
+            max-width: 600px;
+            background-color: rgba(255, 255, 255, 0.85);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-weight: 700;
+            font-size: 2.4em;
+            color: #0056b3;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 1.2em;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        .btn {
+            font-size: 1.1em;
+            padding: 12px 30px;
+            border-radius: 8px;
+            background-color: #0056b3;
+            color: white;
+            text-decoration: none;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .btn:hover {
+            background-color: #003d7a;
+            transform: translateY(-2px);
+        }
+        .btn i {
+            margin-right: 5px;
+        }
+
+        /* 집 모양 버튼 스타일 */
+        .home-button {
+            display: inline-block;
+            text-decoration: none;
+            padding: 10px;
+            background-color: #3498db;
+            color: white;
+            border-radius: 50%;
+            font-size: 24px;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        .home-button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <!-- 집 모양 버튼 추가 -->
+    <a href="http://www.localhost:3000/Login" class="home-button"><i class="fas fa-home"></i></a>
+
+    <header id="header"></header>
+    <div class="container">
+        <h1>Welcome to the Traffic</h1>
+        <p>해외여행을 계획하세요 국내여행을 계획하세요? :</p>
+        <a href="{{ url_for('domestic_survey') }}" class="btn"><i class="fas fa-home"></i>국내여행</a>
+        <a href="{{ url_for('international_survey') }}" class="btn"><i class="fas fa-plane"></i>해외여행</a>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const images = [
+                'https://images.unsplash.com/photo-1475189778702-5ec9941484ae?q=80&w=1171&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90oy1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                'https://images.unsplash.com/photo-1530841344029-ec3ae0fa4cc4?q=80&w=1035&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90oy1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                'https://images.unsplash.com/photo-1605538032554-0bbca27068f1?q=80&w=1065&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90oy1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                'https://images.unsplash.com/photo-1661948404806-391a240d6d40?q=80&w=1172&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90oy1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+            ];
+            const header = document.getElementById('header');
+            const randomIndex = Math.floor(Math.random() * images.length);
+            const img = new Image();
+            img.src = images[randomIndex];
+            img.onload = () => {
+                header.style.backgroundImage = `url('${images[randomIndex]}')`;
+            };
+            img.onerror = () => {
+                console.error('Failed to load image:', images[randomIndex]);
+                // 대체 이미지 설정
+                header.style.backgroundImage = 'url("https://plus.unsplash.com/premium_photo-1661963804020-e93b8d27139e?q=80&w=1032&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")';
+            };
+        });
+    </script>
+</body>
+</html>

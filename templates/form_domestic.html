@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>국내여행지 추천 설문</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Noto Sans KR', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        .background-blur {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            backdrop-filter: blur(0px);
+            z-index: -1;
+        }
+
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 150px;
+            border-radius: 100px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            width: 60%;
+            max-width: 800px;
+        }
+
+        h1 {
+            color: #0056b3;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        input[type="date"], input[type="text"], select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 2px;
+            margin-bottom: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            padding: 10px 20px;
+            font-size: 16px;
+            transition: background-color 0.2s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .radio-options {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 16px;
+        }
+
+        .radio-options div {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .radio-options input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        /* 집 모양 버튼 스타일 */
+        .home-button {
+            display: inline-block;
+            text-decoration: none;
+            padding: 10px;
+            background-color: #3498db;
+            color: white;
+            border-radius: 50%;
+            font-size: 24px;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .home-button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <!-- 홈 버튼 -->
+    <a href="http://www.localhost:3000/Login" class="home-button">🏠</a>
+
+    <div class="background-blur"></div>
+    <div class="form-container">
+        <h1>국내여행지 추천</h1>
+        <form action="/domestic" method="post">
+            <label for="start_date">여행 출발 날짜를 입력해주세요!</label>
+            <input type="date" id="start_date" name="start_date">
+
+            <label for="end_date">여행 종료 날짜를 입력해주세요!</label>
+            <input type="date" id="end_date" name="end_date">
+
+            <label for="companions">누구와 함께 여행가는지 알려주세요!</label>
+            <div class="radio-options">
+                <div>
+                    <input type="radio" id="solo" name="companions" value="solo">
+                    <label for="solo">혼자</label>
+                </div>
+                <div>
+                    <input type="radio" id="friends" name="companions" value="friends">
+                    <label for="friends">친구와 함께</label>
+                </div>
+                <div>
+                    <input type="radio" id="partner" name="companions" value="partner">
+                    <label for="partner">연인과 함께</label>
+                </div>
+                <div>
+                    <input type="radio" id="family" name="companions" value="family">
+                    <label for="family">가족과 함께</label>
+                </div>
+            </div>
+
+            <label for="departure_city">출발 도시를 입력해주세요!</label>
+            <input type="text" id="departure_city" name="departure_city">
+
+            <label for="transportation">자동차로 이동하시나요 대중교통을 이용하시나요?</label>
+            <div class="radio-options">
+                <div>
+                    <input type="radio" id="public" name="transportation" value="public">
+                    <label for="public">대중교통</label>
+                </div>
+                <div>
+                    <input type="radio" id="car" name="transportation" value="car">
+                    <label for="car">자동차</label>
+                </div>
+            </div>
+
+            <label for="style">선호하는 여행 스타일은 무엇인가요?</label>
+            <select id="style" name="style">
+                <option value="mountain">산</option>
+                <option value="beach">바다</option>
+                <option value="shopping">쇼핑</option>
+                <option value="activity">액티비티</option>
+                <option value="heritage">문화 유적지</option>
+            </select>
+
+            <input type="submit" value="제출">
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const images = [
+                'https://plus.unsplash.com/premium_photo-1716968595134-f74c3e3ced1d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90oy1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                'https://images.unsplash.com/photo-1562680829-7927493f7a50?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8JUVEJTk1JTlDJUVBJUI1JUFEJTIwJUVDJTk3JUFDJUVEJTk2JTg5fGVufDB8fDB8fHww',
+                'https://images.unsplash.com/photo-1702078306371-ff9604359f70?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90oy1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                'https://images.unsplash.com/photo-1654592205911-a1690a2bed54?q=80&w=2154&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90oy1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                'https://images.unsplash.com/photo-1610385652321-055f30f9dc55?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                'https://images.unsplash.com/photo-1674999603094-adf8172fda45?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                'https://plus.unsplash.com/premium_photo-1610566091306-b45630245358?q=80&w=1045&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                'https://images.unsplash.com/photo-1674799422462-b2ab7a0b752f?q=80&w=2035&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                'https://images.unsplash.com/photo-1637989739727-bcd336b84644?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+            ];
+
+            const randomIndex = Math.floor(Math.random() * images.length);
+            const randomImageUrl = images[randomIndex];
+            document.body.style.backgroundImage = `url(${randomImageUrl})`;
+        });
+    </script>
+</body>
+</html>
